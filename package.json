@@ -1,8 +1,8 @@
 {
   "name": "project-flashcards",
+  "homepage": "https://nolaxking.github.io/Flashcard-App",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nolaxking.github.io/Flashcard-App",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
