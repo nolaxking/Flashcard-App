@@ -31,7 +31,7 @@ function Showcards({ deck }) {
         his.push(`${url}`);
       }
     }
-    console.log(url);
+    
     return (
       <div key={card.id}>
         <div className="card">

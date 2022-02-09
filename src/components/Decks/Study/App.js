@@ -13,7 +13,7 @@ useEffect(() => {
     async function getDeck() {
       const res = await readDeck(deckId);
       setDeck(res);
-      console.log(res)
+      
     }
     getDeck()
   },[deckId]);

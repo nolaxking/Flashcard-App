@@ -10,7 +10,7 @@ function ShowDecks() {
     async function getDeck() {
       const res = await listDecks();
       setDecks(res);
-      console.log(res)
+      
     }
     getDeck()
   },[]);

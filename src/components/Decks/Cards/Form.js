@@ -3,7 +3,7 @@ import { useHistory, useParams, useLocation } from "react-router-dom";
 import { createCard, updateCard, readCard } from "../../../utils/api";
 
 function Form({ deck }) {
-  const his = useHistory;
+  const his = useHistory();
   const { cardId, deckId } = useParams();
   const {pathname}= useLocation();
 
@@ -47,8 +47,10 @@ function Form({ deck }) {
 
   function handleSave() {
     createCard(parseInt(deckId), { ...front, ...back });
+    his.push(`/decks/${deck.id}`);
     setFront({ front: "" });
     setBack({ back: "" });
+    
   }
 
   if (!front || !back) return null;
