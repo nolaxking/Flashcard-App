@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import { createCard, updateCard, readCard } from "../../../utils/api";
+import ErrorAlert from "../../../Layout/ErrorAlert"
 
 function Form({ deck }) {
   const his = useHistory();
   const { cardId, deckId } = useParams();
-  const {pathname}= useLocation();
+  const { pathname } = useLocation();
+  
 
   const [isEdit, setIsEdit] = useState(null);
   const [front, setFront] = useState({ front: "" });
   const [back, setBack] = useState({ back: "" });
+  const [error, setError] = useState();
 
   useEffect(() => {
     async function getCard() {
@@ -41,15 +44,37 @@ function Form({ deck }) {
   }
 
   function handleUpdate() {
+    try {
+     
+      if(front.front === ""){
+        throw new Error("Need a  front card name!!")
+      }if(back.back===""){
+        throw new Error("Need a back card name!!")
+      }
     updateCard({ id: cardId, deckId: deck.id, ...front, ...back });
     his.push(`/decks/${deck.id}`);
+    }
+    catch (err) {
+      if(err)setError(err.message)
+    }
   }
 
   function handleSave() {
+    try {
+     
+      if(front.front === ""){
+        throw new Error("Need a  front card name!!")
+      }if(back.back===""){
+        throw new Error("Need a back card name!!")
+      }
     createCard(parseInt(deckId), { ...front, ...back });
     his.push(`/decks/${deck.id}`);
     setFront({ front: "" });
     setBack({ back: "" });
+    }
+    catch (err) {
+      if(err)setError(err.message)
+    }
     
   }
 
@@ -79,7 +104,9 @@ function Form({ deck }) {
             onChange={handleBack}
           ></textarea>
         </div>
-
+        <div>
+        <ErrorAlert error={error} />
+        </div>
         <button
           type="button"
           className="btn btn-secondary mr-1"
