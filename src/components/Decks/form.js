@@ -35,14 +35,13 @@ function Form({ deck }) {
 
   function handleDescription(event) {
     const abort = new AbortController();
-    try{
-    setDescription(
-      { ...description, description: event.target.value },
-      abort.signal
-    );
-    }
-    catch(err){
-      throw err
+    try {
+      setDescription(
+        { ...description, description: event.target.value },
+        abort.signal
+      );
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -50,36 +49,35 @@ function Form({ deck }) {
     const abort = new AbortController();
 
     try {
-      if(name.name === ""){
-        throw new Error("Need a name!!")
-      }if(description.description===""){
-        throw new Error("Need a description!!")
+      if (name.name === "") {
+        throw new Error("Need a name!!");
+      }
+      if (description.description === "") {
+        throw new Error("Need a description!!");
       }
       await createDeck({ ...name, ...description }, abort.signal);
       const response = await listDecks();
       const newDeckId = Math.max(...response.map((deck) => deck.id));
       his.push(`/decks/${newDeckId}`);
     } catch (err) {
-      if(err)setError(err.message)
+      if (err) setError(err.message);
     }
   }
 
   function handleUpdate() {
     const abort = new AbortController();
     try {
-     
-        if(name.name === ""){
-          throw new Error("Need a name")
-        }if(description.description===""){
-          throw new Error("Need a description")
-        }
+      if (name.name === "") {
+        throw new Error("Need a name");
+      }
+      if (description.description === "") {
+        throw new Error("Need a description");
+      }
       updateDeck({ id: deck.id, ...name, ...description }, abort.signal);
-    his.push(`/decks/${deck.id}`);
-      
+      his.push(`/decks/${deck.id}`);
     } catch (err) {
-      if(err)setError(err.message)
+      if (err) setError(err.message);
     }
-    
   }
 
   return (
